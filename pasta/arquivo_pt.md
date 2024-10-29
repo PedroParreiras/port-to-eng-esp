@@ -1,0 +1,15 @@
+{
+  "common": {
+    "maintenance": "Sistema em manutenção",
+    "sessionExpired": "Sessão expirada",
+    "loading": "Carregando",
+    "accountAbstraction": {
+      "transactionSent": "Transação enviada para processamento! Aguarde um momento",
+      "transactionError": "Algo de errado aconteceu! Contacte um administrador",
+      "wrongNetwork": "Certifique-se que você está na rede correta ({{chainId}})"
+    },
+    "yes": "Claro",
+    "no": "Não",
+    "and": "e",
+    "you": "Vocês",
+    "hash": "Hash”,}}
