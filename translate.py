@@ -28,7 +28,7 @@ def translate_dict(data, target_language):
     elif isinstance(data, list):
         return [translate_dict(item, target_language) for item in data]
     elif isinstance(data, str):
-        return translate_text(v, target_language)
+        return translate_text(data, target_language)
     else:
         return data
 
