@@ -4,6 +4,7 @@ import json
 import sys
 
 def translate_text(text, target_language):
+    print(f"Traduzindo para {target_language}: {text}")
     openai.api_key = os.getenv("OPENAI_API_KEY")
     prompt = f"Traduza o seguinte texto para {target_language}:\n\n{text}"
 
@@ -38,18 +39,23 @@ def main():
         en_file = 'pasta/arquivo_en.json'
         es_file = 'pasta/arquivo_es.json'
 
-        # Ler o conteúdo do arquivo em português
+        print(f"Lendo o arquivo em português: {pt_file}")
         with open(pt_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
-        # Traduzir os valores
+        print("Iniciando a tradução para Inglês...")
         translated_en = translate_dict(data, "Inglês")
-        translated_es = translate_dict(data, "Espanhol")
+        print("Tradução para Inglês concluída.")
 
-        # Escrever os arquivos traduzidos
+        print("Iniciando a tradução para Espanhol...")
+        translated_es = translate_dict(data, "Espanhol")
+        print("Tradução para Espanhol concluída.")
+
+        print("Escrevendo os arquivos traduzidos...")
         with open(en_file, 'w', encoding='utf-8') as f_en, open(es_file, 'w', encoding='utf-8') as f_es:
             json.dump(translated_en, f_en, ensure_ascii=False, indent=2)
             json.dump(translated_es, f_es, ensure_ascii=False, indent=2)
+        print("Arquivos traduzidos escritos com sucesso.")
 
     except Exception as e:
         print(f"Erro no script de tradução: {e}")
