@@ -1,6 +1,6 @@
 {
   "common": {
-    "maintenance": "Sistema em manutenção",
+    "maintenance": "Bananas são doces",
     "sessionExpired": "Sessão expirada",
     "loading": "Carregando",
     "accountAbstraction": {
