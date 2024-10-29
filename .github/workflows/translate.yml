@@ -3,7 +3,7 @@ name: Traduzir Arquivos
 on:
   push:
     paths:
-      - 'pasta/arquivo_pt.json'  # Certifique-se de que o caminho está correto
+      - 'pasta/arquivo_pt.json'  # Ajuste o caminho conforme necessário
 
 jobs:
   translate:
@@ -20,6 +20,7 @@ jobs:
 
       - name: Instalar dependências
         run: |
+          echo "Instalando dependências..."
           python -m pip install --upgrade pip
           pip install openai
 
@@ -27,7 +28,9 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
+          echo "Iniciando o script de tradução..."
           python translate.py
+          echo "Script de tradução concluído."
 
       - name: Configurar Git
         run: |
@@ -36,8 +39,11 @@ jobs:
 
       - name: Commit e Push das traduções
         run: |
+          echo "Adicionando arquivos traduzidos..."
           git add pasta/arquivo_en.json pasta/arquivo_es.json
-          git commit -m "Atualizar traduções automáticas"
+          echo "Fazendo commit das traduções..."
+          git commit -m "Atualizar traduções automáticas" || echo "Nenhuma alteração para commitar"
+          echo "Enviando alterações para o repositório remoto..."
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,6 +1,6 @@
 {
   "common": {
-    "maintenance": "carros são azuis",
+    "maintenance": "Sistema em manutenção",
     "sessionExpired": "Sessão expirada",
     "loading": "Carregando",
     "accountAbstraction": {
@@ -12,4 +12,6 @@
     "no": "Não",
     "and": "e",
     "you": "Vocês",
-    "hash": "Hash”,}}
+    "hash": "Hash"
+  }
+}
