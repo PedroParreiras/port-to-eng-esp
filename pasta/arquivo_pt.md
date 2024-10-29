@@ -1,6 +1,6 @@
 {
   "common": {
-    "maintenance": "Bananas são doces",
+    "maintenance": "carros são azuis",
     "sessionExpired": "Sessão expirada",
     "loading": "Carregando",
     "accountAbstraction": {
