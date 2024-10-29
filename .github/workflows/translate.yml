@@ -3,41 +3,41 @@ name: Traduzir Arquivos
 on:
   push:
     paths:
-      - 'pasta/arquivo_pt.md'
+      - 'pasta/arquivo_pt.json'  # Certifique-se de que o caminho está correto
 
 jobs:
   translate:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout do código
-      uses: actions/checkout@v3
+      - name: Checkout do código
+        uses: actions/checkout@v3
 
-    - name: Configurar Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
 
-    - name: Instalar dependências
-      run: |
-        python -m pip install --upgrade pip
-        pip install openai
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install openai
 
-    - name: Executar tradução
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      run: |
-        python translate.py
+      - name: Executar tradução
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python translate.py
 
-    - name: Configurar Git
-      run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Configurar Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: Commit e Push das traduções
-      run: |
-        git add pasta/arquivo_en.md pasta/arquivo_es.md
-        git commit -m "Atualizar traduções automáticas"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit e Push das traduções
+        run: |
+          git add pasta/arquivo_en.json pasta/arquivo_es.json
+          git commit -m "Atualizar traduções automáticas"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
