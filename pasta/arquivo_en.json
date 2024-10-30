@@ -1,17 +1,17 @@
 {
   "common": {
-    "maintenance": "System under maintenance",
+    "maintenance": "Change something",
     "sessionExpired": "Session expired",
-    "loading": "Loading",
+    "loading": "blue car",
     "accountAbstraction": {
-      "transactionSent": "Transaction sent for processing! Please wait a moment",
-      "transactionError": "Something went wrong! Contact an administrator",
+      "transactionSent": "Transaction sent for processing! Please wait a moment.",
+      "transactionError": "Something went wrong! Contact an administrator.",
       "wrongNetwork": "Make sure you are on the correct network ({{chainId}})"
     },
-    "yes": "Yes",
-    "no": "No",
-    "and": "and",
-    "you": "You",
-    "hash": "Hash"
+    "yes": "\"Claro\" translates to \"clear\" in English.",
+    "no": "\"Não\" translates to \"No\" in English.",
+    "and": "The text \"e\" does not have a specific meaning in English. It could be a single letter or a typo. If you provide more context or a complete sentence, I can help you with the translation.",
+    "you": "\"They\"",
+    "hash": "\"Hash\" in English refers to a dish made by cooking chopped meat, potatoes, and spices together. It can also refer to a method of encrypting data or a symbol used in social media to categorize topics."
   }
 }
