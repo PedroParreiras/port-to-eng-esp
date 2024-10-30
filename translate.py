@@ -15,6 +15,8 @@ def translate_text(text, target_language):
         print("Erro: Chave da API do OpenAI não fornecida.")
         sys.exit(1)
     
+    print(f"Chave da API obtida: {openai.api_key[:4]}****")  # Imprime apenas os primeiros 4 caracteres para segurança
+    
     print(f"Traduzindo para {target_language}: {text}")
     
     # Define o idioma de destino
