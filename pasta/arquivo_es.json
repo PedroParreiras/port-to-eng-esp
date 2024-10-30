@@ -1,17 +1,17 @@
 {
   "common": {
-    "maintenance": "\"mude algo\" translates to \"move something\" in Spanish.",
-    "sessionExpired": "La sesión ha expirado.",
-    "loading": "Blue car",
+    "maintenance": "Sistema en mantenimiento",
+    "sessionExpired": "Sesión expirada",
+    "loading": "Cargando",
     "accountAbstraction": {
-      "transactionSent": "Transacción enviada para procesamiento. Por favor, espere un momento.",
-      "transactionError": "Algo salió mal. Contacta con un administrador.",
+      "transactionSent": "¡Transacción enviada para procesamiento! Espere un momento",
+      "transactionError": "¡Algo salió mal! Contacte a un administrador",
       "wrongNetwork": "Asegúrese de que está en la red correcta ({{chainId}})"
     },
-    "yes": "\"Claro\" translates to \"clear\" or \"of course\" in Spanish.",
-    "no": "\"Não\" translates to \"No\" in Spanish.",
-    "and": "The text \"e\" does not have a specific meaning in English, so there is no translation needed.",
-    "you": "\"Eles\" does not have a direct translation in Spanish. It could be a misspelling or a word in a different language. If you provide more context, I can help you with a more accurate translation.",
-    "hash": "Hash translates to \"hash\" in Spanish."
+    "yes": "Claro",
+    "no": "No",
+    "and": "y",
+    "you": "Ustedes",
+    "hash": "Hash"
   }
 }
