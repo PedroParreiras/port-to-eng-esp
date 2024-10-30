@@ -29,13 +29,16 @@ def translate_text(text, target_language):
     prompt = f"Translate the following text to {lang}:\n\n{text}"
 
     try:
-        response = openai.Completion.create(
-            engine="text-davinci-003",  # Escolha o modelo que preferir
-            prompt=prompt,
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",  # Escolha o modelo que preferir
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant that translates text."},
+                {"role": "user", "content": prompt}
+            ],
             max_tokens=1000,
             temperature=0.3,
         )
-        translated_text = response.choices[0].text.strip()
+        translated_text = response.choices[0].message['content'].strip()
         return translated_text
     except Exception as e:
         print(f"Erro ao traduzir para {target_language}: {e}")
