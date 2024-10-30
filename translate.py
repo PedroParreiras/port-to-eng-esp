@@ -15,8 +15,6 @@ def translate_text(text, target_language):
         print("Erro: Chave da API do OpenAI não fornecida.")
         sys.exit(1)
     
-    print(f"Chave da API obtida: {openai.api_key[:4]}****")  # Imprime apenas os primeiros 4 caracteres para segurança
-    
     print(f"Traduzindo para {target_language}: {text}")
     
     # Define o idioma de destino
@@ -34,7 +32,7 @@ def translate_text(text, target_language):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",  # Escolha o modelo que preferir
             messages=[
-                {"role": "system", "content": "You are a helpful translator."},
+                {"role": "system", "content": "You are a helpful assistant that translates text."},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=1000,

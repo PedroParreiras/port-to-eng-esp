@@ -31,9 +31,26 @@ jobs:
         run: |
           echo "Instalando dependências Python..."
           python -m pip install --upgrade pip
-          pip install openai python-dotenv
+          pip install openai==0.28.0 python-dotenv
 
-      # Passo 5: Executar o script de tradução
+      # Passo 5: Verificar versão do openai
+      - name: Verificar versão do openai
+        run: |
+          pip show openai
+
+      # Passo 6: Verificar variável de ambiente OPENAI_API_KEY
+      - name: Verificar variável de ambiente OPENAI_API_KEY
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "OPENAI_API_KEY não está definida."
+            exit 1
+          else
+            echo "OPENAI_API_KEY está definida. Primeiros 4 caracteres: ${OPENAI_API_KEY:0:4}****"
+          fi
+
+      # Passo 7: Executar o script de tradução
       - name: Executar tradução
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -42,13 +59,13 @@ jobs:
           python translate.py
           echo "Script de tradução concluído."
 
-      # Passo 6: Configurar Git para commit
+      # Passo 8: Configurar Git para commit
       - name: Configurar Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Passo 7: Commit e Push das traduções
+      # Passo 9: Commit e Push das traduções
       - name: Commit e Push das traduções
         run: |
           echo "Adicionando arquivos traduzidos..."
