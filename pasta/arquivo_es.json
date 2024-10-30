@@ -5,10 +5,10 @@
     "loading": "cargando",
     "accountAbstraction": {
       "transactionSent": "¡Transacción enviada para procesamiento! Por favor, espere un momento.",
-      "transactionError": "¡Algo salió mal! Contacta con un administrador.",
+      "transactionError": "¡Algo salió mal! Contacta a un administrador.",
       "wrongNetwork": "Asegúrate de que estás en la red correcta ({{chainId}})"
     },
-    "yes": "Claro",
+    "yes": "Con certeza",
     "no": "No",
     "and": "e",
     "you": "Ellos",

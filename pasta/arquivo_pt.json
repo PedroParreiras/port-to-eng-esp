@@ -8,7 +8,7 @@
       "transactionError": "Algo de errado aconteceu! Contacte um administrador",
       "wrongNetwork": "Certifique-se que você está na rede correta ({{chainId}})"
     },
-    "yes": "Claro",
+    "yes": "Com certeza",
     "no": "Não",
     "and": "e",
     "you": "Eles",
