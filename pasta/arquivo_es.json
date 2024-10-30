@@ -1,6 +1,6 @@
 {
   "common": {
-    "maintenance": "En mantenimiento",
+    "maintenance": "Performing Maintenance",
     "sessionExpired": "Sesión expirada",
     "loading": "Cargando",
     "accountAbstraction": {
