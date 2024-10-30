@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "Instalando dependências Python..."
           python -m pip install --upgrade pip
-          pip install openai
+          pip install openai python-dotenv
 
       - name: Executar tradução
         env:

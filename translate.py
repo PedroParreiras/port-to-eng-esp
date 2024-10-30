@@ -2,22 +2,44 @@ import os
 import openai
 import json
 import sys
+from dotenv import load_dotenv
+
+# Carrega as variáveis de ambiente do arquivo .env (para desenvolvimento local)
+load_dotenv()
 
 def translate_text(text, target_language):
-    print(f"Traduzindo para {target_language}: {text}")
+    # Obtém a chave da API do ambiente
     openai.api_key = os.getenv("OPENAI_API_KEY")
-    prompt = f"Traduza o seguinte texto para {target_language}:\n\n{text}"
+    
+    if not openai.api_key:
+        print("Erro: Chave da API do OpenAI não fornecida.")
+        sys.exit(1)
+    
+    print(f"Traduzindo para {target_language}: {text}")
+    
+    # Define o idioma de destino
+    if target_language.lower() == "inglês":
+        lang = "English"
+    elif target_language.lower() == "espanhol":
+        lang = "Spanish"
+    else:
+        print(f"Idioma alvo '{target_language}' não suportado.")
+        sys.exit(1)
+    
+    prompt = f"Translate the following text to {lang}:\n\n{text}"
 
     try:
-        response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=prompt,
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",  # Escolha o modelo que preferir
+            messages=[
+                {"role": "system", "content": "You are a helpful translator."},
+                {"role": "user", "content": prompt}
+            ],
             max_tokens=1000,
-            n=1,
-            stop=None,
             temperature=0.3,
         )
-        return response.choices[0].text.strip()
+        translated_text = response.choices[0].message['content'].strip()
+        return translated_text
     except Exception as e:
         print(f"Erro ao traduzir para {target_language}: {e}")
         sys.exit(1)
