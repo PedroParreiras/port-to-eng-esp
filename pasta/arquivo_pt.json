@@ -2,7 +2,7 @@
   "common": {
     "maintenance": "em manutenção",
     "sessionExpired": "Sessão expirada",
-    "loading": "carregando",
+    "loading": "A carregar",
     "accountAbstraction": {
       "transactionSent": "Transação enviada para processamento! Aguarde um momento",
       "transactionError": "Algo de errado aconteceu! Contacte um administrador",
