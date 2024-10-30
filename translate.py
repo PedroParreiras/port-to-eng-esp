@@ -12,7 +12,7 @@ load_dotenv()
 def get_previous_file_content(file_path):
     """
     Recupera o conteúdo do arquivo no último commit.
-    Se não houver commits anteriores, retorna um dicionário vazio.
+    Se não houver commits anteriores ou o arquivo não existir, retorna um dicionário vazio.
     """
     try:
         # Executa o comando git para obter o conteúdo do arquivo no último commit
@@ -114,12 +114,12 @@ def find_changes(current_data, previous_data):
                     changes[key] = value
     return changes
 
-def update_translation(current_data, changes, target_language):
+def update_translation(current_translation, changes, target_language):
     """
     Atualiza as traduções apenas para os textos que mudaram.
     Retorna o dicionário atualizado das traduções.
     """
-    updated_translation = deepcopy(current_data)
+    updated_translation = deepcopy(current_translation)
     
     for key, value in changes.items():
         if isinstance(value, dict):
@@ -149,45 +149,38 @@ def main():
         print(f"Lendo o arquivo em português anterior (último commit): {pt_file}")
         previous_pt = get_previous_file_content(pt_file)
 
-        print("Identificando mudanças para Inglês...")
-        changes_en = find_changes(current_pt, previous_pt)
-        print(f"Número de entradas a traduzir para Inglês: {len(changes_en)}")
+        print("Identificando mudanças...")
+        changes = find_changes(current_pt, previous_pt)
+        print(f"Número de entradas a traduzir: {len(changes)}")
 
-        print("Identificando mudanças para Espanhol...")
-        changes_es = find_changes(current_pt, previous_pt)
-        print(f"Número de entradas a traduzir para Espanhol: {len(changes_es)}")
+        if not changes:
+            print("Nenhuma mudança detectada. Nenhuma tradução necessária.")
+            sys.exit(0)
 
         # Carregar traduções existentes
         previous_en = load_current_file(en_file) if os.path.exists(en_file) else {}
         previous_es = load_current_file(es_file) if os.path.exists(es_file) else {}
 
         # Atualizar traduções para Inglês
-        if changes_en:
-            print("Iniciando a tradução para Inglês...")
-            translated_en = update_translation(previous_en, changes_en, "Inglês")
-            print("Tradução para Inglês concluída.")
-        else:
-            print("Nenhuma tradução necessária para Inglês.")
+        print("Iniciando a tradução para Inglês...")
+        translated_en = update_translation(previous_en, changes, "Inglês")
+        print("Tradução para Inglês concluída.")
 
         # Atualizar traduções para Espanhol
-        if changes_es:
-            print("Iniciando a tradução para Espanhol...")
-            translated_es = update_translation(previous_es, changes_es, "Espanhol")
-            print("Tradução para Espanhol concluída.")
-        else:
-            print("Nenhuma tradução necessária para Espanhol.")
+        print("Iniciando a tradução para Espanhol...")
+        translated_es = update_translation(previous_es, changes, "Espanhol")
+        print("Tradução para Espanhol concluída.")
 
         # Escrever os arquivos traduzidos
-        if changes_en:
+        if translated_en:
             print(f"Escrevendo o arquivo traduzido em Inglês: {en_file}")
             save_json(translated_en, en_file)
 
-        if changes_es:
+        if translated_es:
             print(f"Escrevendo o arquivo traduzido em Espanhol: {es_file}")
             save_json(translated_es, es_file)
 
-        if not changes_en and not changes_es:
-            print("Nenhuma tradução foi atualizada.")
+        print("Arquivos traduzidos atualizados com sucesso.")
 
     except Exception as e:
         print(f"Erro no script de tradução: {e}")
