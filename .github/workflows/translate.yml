@@ -10,25 +10,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Passo 1: Checkout do código
       - name: Checkout do código
         uses: actions/checkout@v3
 
+      # Passo 2: Configurar Node.js versão 20
       - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # Passo 3: Configurar Python versão 3.9
       - name: Configurar Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
+      # Passo 4: Instalar dependências Python
       - name: Instalar dependências Python
         run: |
           echo "Instalando dependências Python..."
           python -m pip install --upgrade pip
           pip install openai python-dotenv
 
+      # Passo 5: Executar o script de tradução
       - name: Executar tradução
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -37,11 +42,13 @@ jobs:
           python translate.py
           echo "Script de tradução concluído."
 
+      # Passo 6: Configurar Git para commit
       - name: Configurar Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      # Passo 7: Commit e Push das traduções
       - name: Commit e Push das traduções
         run: |
           echo "Adicionando arquivos traduzidos..."
