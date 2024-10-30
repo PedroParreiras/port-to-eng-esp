@@ -1,8 +1,8 @@
 {
   "common": {
-    "maintenance": "mude algo",
+    "maintenance": "em manutenção",
     "sessionExpired": "Sessão expirada",
-    "loading": "carro azul",
+    "loading": "carregando",
     "accountAbstraction": {
       "transactionSent": "Transação enviada para processamento! Aguarde um momento",
       "transactionError": "Algo de errado aconteceu! Contacte um administrador",
