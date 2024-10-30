@@ -6,12 +6,19 @@
     "accountAbstraction": {
       "transactionSent": "¡Transacción enviada para procesamiento! Por favor, espere un momento.",
       "transactionError": "¡Algo salió mal! Contacta con un administrador.",
-      "wrongNetwork": "Asegúrate de que estás en la red correcta ({{chainId}})"
+      "wrongNetwork": "Asegúrese de que está en la red correcta ({{chainId}})"
     },
     "yes": "Claro",
     "no": "No",
     "and": "e",
     "you": "Ellos",
-    "hash": "Hash"
+    "hash": "Hash",
+    "contracts": {
+      "label": "Contratos",
+      "options": {
+        "sourcing": "Abastecimiento",
+        "tokenization": "Tokenización"
+      }
+    }
   }
 }
