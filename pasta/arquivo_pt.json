@@ -1,6 +1,6 @@
 {
   "common": {
-    "maintenance": "carro",
+    "maintenance": "avião",
     "sessionExpired": "Sessão expirada",
     "loading": "Carregando",
     "accountAbstraction": {
