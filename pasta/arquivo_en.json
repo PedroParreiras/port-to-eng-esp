@@ -1,17 +1,17 @@
 {
   "common": {
-    "maintenance": "System under maintenance",
+    "maintenance": "under maintenance",
     "sessionExpired": "Session expired",
-    "loading": "Loading",
+    "loading": "loading",
     "accountAbstraction": {
-      "transactionSent": "Transaction sent for processing! Please wait a moment",
+      "transactionSent": "Transaction sent for processing! Please wait a moment.",
       "transactionError": "Something went wrong! Contact an administrator",
       "wrongNetwork": "Make sure you are on the correct network ({{chainId}})"
     },
-    "yes": "Yes",
+    "yes": "Clear",
     "no": "No",
     "and": "and",
-    "you": "You",
+    "you": "They",
     "hash": "Hash"
   }
 }
