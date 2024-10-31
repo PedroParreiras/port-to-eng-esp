@@ -3,7 +3,12 @@
     "maintenance": "Performing Maintenance",
     "sessionExpired": "Session expired",
     "loading": "Loading",
-    "yes": "Yes",
+    "accountAbstraction": {
+      "transactionSent": "Transaction sent for processing! Please wait a moment",
+      "transactionError": "Something went wrong! Contact an administrator",
+      "wrongNetwork": "Make sure you are on the correct network ({{chainId}})"
+    },
+    "yes": "Clear",
     "no": "No",
     "and": "and",
     "you": "They",
