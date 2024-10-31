@@ -12,6 +12,13 @@
     "no": "No",
     "and": "and",
     "you": "They",
-    "hash": "Hash"
+    "hash": "Hash",
+    "contracts": {
+      "label": "Contracts",
+      "options": {
+        "sourcing": "Obtaining",
+        "tokenization": "Tokenization"
+      }
+    }
   }
 }
