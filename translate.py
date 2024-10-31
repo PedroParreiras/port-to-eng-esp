@@ -29,6 +29,7 @@ def translate_text(text, target_language):
     Traduz um texto para o idioma alvo utilizando a API do OpenAI.
     Retorna apenas o texto traduzido sem informações adicionais.
     """
+    # Obtém a chave da API do ambiente
     openai.api_key = os.getenv("OPENAI_API_KEY")
     
     if not openai.api_key:
@@ -44,11 +45,12 @@ def translate_text(text, target_language):
         print(f"Idioma alvo '{target_language}' não suportado.")
         sys.exit(1)
     
+    # Modificação do prompt para solicitar apenas a tradução sem explicações
     prompt = f"Translate the following text to {lang}. Provide only the translated text without any additional information:\n\n{text}"
     
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-3.5-turbo",  # Escolha o modelo que preferir
             messages=[
                 {"role": "system", "content": "You are a helpful assistant that translates text concisely."},
                 {"role": "user", "content": prompt}
@@ -57,6 +59,9 @@ def translate_text(text, target_language):
             temperature=0.3,
         )
         translated_text = response.choices[0].message['content'].strip()
+        
+        # Remover possíveis quebras de linha ou espaços extras
+        translated_text = translated_text.split('\n')[0].strip()
         
         return translated_text
     except Exception as e:
@@ -71,61 +76,90 @@ def find_changes(current_data, previous_data):
     changes = {}
     for key, value in current_data.items():
         if key not in previous_data:
+            # Nova chave adicionada
             changes[key] = value
         else:
             if isinstance(value, dict) and isinstance(previous_data[key], dict):
+                # Recursivamente verificar mudanças em dicionários aninhados
                 nested_changes = find_changes(value, previous_data[key])
                 if nested_changes:
                     changes[key] = nested_changes
-            elif value != previous_data[key]:
-                changes[key] = value
+            else:
+                if value != previous_data[key]:
+                    changes[key] = value
     return changes
 
-def update_translations(current_pt, previous_translations, target_language):
+def update_translations(current_pt, changes, previous_translation, target_language):
     """
-    Atualiza as traduções para apenas os textos alterados e retorna um dicionário atualizado.
+    Atualiza as traduções apenas para os textos que mudaram.
+    Modifica o dicionário de tradução existente diretamente.
     """
-    changes = find_changes(current_pt, previous_translations)
-    updated_translation = previous_translations.copy()
-    
     for key, value in changes.items():
         if isinstance(value, dict):
-            # Recursivamente traduz dicionários aninhados
-            updated_translation[key] = update_translations(value, previous_translations.get(key, {}), target_language)
+            # Se for um dicionário aninhado, garantir que exista na tradução
+            if key not in previous_translation or not isinstance(previous_translation[key], dict):
+                previous_translation[key] = {}
+            # Recursivamente atualizar traduções aninhadas
+            update_translations(current_pt[key], value, previous_translation[key], target_language)
         else:
             # Traduz somente o valor alterado
             translated_text = translate_text(value, target_language)
-            updated_translation[key] = translated_text
-    
-    return updated_translation
+            previous_translation[key] = translated_text
 
 def main():
     try:
+        # Caminhos dos arquivos
         pt_file = 'pasta/arquivo_pt.json'
+        previous_pt_file = 'pasta/previous_pt.json'
         en_file = 'pasta/arquivo_en.json'
         es_file = 'pasta/arquivo_es.json'
 
-        print(f"Lendo o arquivo em português: {pt_file}")
+        print(f"Lendo o arquivo em português atual: {pt_file}")
         current_pt = load_json(pt_file)
 
+        print(f"Lendo o arquivo em português anterior: {previous_pt_file}")
+        previous_pt = load_json(previous_pt_file)
+
+        # Identificar as mudanças no arquivo português
+        print("Identificando mudanças no arquivo em português...")
+        changes = find_changes(current_pt, previous_pt)
+
+        if not changes:
+            print("Nenhuma alteração detectada no arquivo em português. Nenhuma tradução será atualizada.")
+            sys.exit(0)
+        else:
+            print(f"Detectadas {len(changes)} alterações no arquivo em português.")
+
+        # Carregar os arquivos de tradução
         print(f"Lendo o arquivo de tradução anterior em Inglês: {en_file}")
         previous_en = load_json(en_file)
 
         print(f"Lendo o arquivo de tradução anterior em Espanhol: {es_file}")
         previous_es = load_json(es_file)
 
-        print("Iniciando a tradução para Inglês...")
-        translated_en = update_translations(current_pt, previous_en, "Inglês")
-        print("Tradução para Inglês concluída.")
+        # Atualizar traduções para Inglês
+        if changes:
+            print("Iniciando a tradução para Inglês...")
+            update_translations(current_pt, changes, previous_en, "Inglês")
+            print("Tradução para Inglês concluída.")
 
-        print("Iniciando a tradução para Espanhol...")
-        translated_es = update_translations(current_pt, previous_es, "Espanhol")
-        print("Tradução para Espanhol concluída.")
+            # Atualizar traduções para Espanhol
+            print("Iniciando a tradução para Espanhol...")
+            update_translations(current_pt, changes, previous_es, "Espanhol")
+            print("Tradução para Espanhol concluída.")
 
-        print("Escrevendo os arquivos traduzidos...")
-        save_json(translated_en, en_file)
-        save_json(translated_es, es_file)
-        print("Arquivos traduzidos escritos com sucesso.")
+            # Salvar os arquivos de tradução atualizados
+            print("Escrevendo os arquivos traduzidos...")
+            save_json(previous_en, en_file)
+            save_json(previous_es, es_file)
+            print("Arquivos traduzidos escritos com sucesso.")
+
+            # Atualizar o arquivo de referência do português
+            print("Atualizando o arquivo de referência do português...")
+            save_json(current_pt, previous_pt_file)
+            print("Arquivo de referência do português atualizado.")
+        else:
+            print("Nenhuma tradução foi atualizada.")
 
     except Exception as e:
         print(f"Erro no script de tradução: {e}")
