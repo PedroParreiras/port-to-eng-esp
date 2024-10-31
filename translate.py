@@ -13,7 +13,11 @@ def load_json(file_path):
     """
     if os.path.exists(file_path):
         with open(file_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
+            try:
+                return json.load(f)
+            except json.JSONDecodeError as e:
+                print(f"Erro ao decodificar JSON em {file_path}: {e}")
+                sys.exit(1)
     else:
         return {}
 
@@ -23,6 +27,7 @@ def save_json(data, file_path):
     """
     with open(file_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+    print(f"Arquivo salvo: {file_path}")
 
 def translate_text(text, target_language):
     """
@@ -59,9 +64,6 @@ def translate_text(text, target_language):
             temperature=0.3,
         )
         translated_text = response.choices[0].message['content'].strip()
-        
-        # Remover possíveis quebras de linha ou espaços extras (Removido o truncamento)
-        # translated_text = translated_text.split('\n')[0].strip()
         
         return translated_text
     except Exception as e:
@@ -102,6 +104,7 @@ def update_translations(current_pt, changes, previous_translation, target_langua
             # Se for um dicionário aninhado, garantir que exista na tradução
             if key not in previous_translation or not isinstance(previous_translation[key], dict):
                 previous_translation[key] = {}
+                print(f"Seção adicionada na tradução: {key}")
             # Recursivamente atualizar traduções aninhadas
             update_translations(current_pt[key], value, previous_translation[key], target_language)
         else:
@@ -118,6 +121,7 @@ def main():
         en_file = 'pasta/arquivo_en.json'
         es_file = 'pasta/arquivo_es.json'
 
+        print("Iniciando o script de tradução...")
         print(f"Lendo o arquivo em português atual: {pt_file}")
         current_pt = load_json(pt_file)
 
@@ -128,11 +132,22 @@ def main():
         print("Identificando mudanças no arquivo em português...")
         changes = find_changes(current_pt, previous_pt)
 
-        if not changes:
+        # Contar o número total de alterações (incluindo sub-chaves)
+        def count_changes(changes_dict):
+            count = 0
+            for v in changes_dict.values():
+                if isinstance(v, dict):
+                    count += count_changes(v)
+                else:
+                    count += 1
+            return count
+
+        total_changes = count_changes(changes)
+        if total_changes == 0:
             print("Nenhuma alteração detectada no arquivo em português. Nenhuma tradução será atualizada.")
             sys.exit(0)
         else:
-            print(f"Detectadas {len(changes)} alterações no arquivo em português.")
+            print(f"Detectadas {total_changes} alterações no arquivo em português.")
 
         # Carregar os arquivos de tradução
         print(f"Lendo o arquivo de tradução anterior em Inglês: {en_file}")
@@ -142,7 +157,7 @@ def main():
         previous_es = load_json(es_file)
 
         # Atualizar traduções para Inglês
-        if changes:
+        if total_changes > 0:
             print("Iniciando a tradução para Inglês...")
             update_translations(current_pt, changes, previous_en, "Inglês")
             print("Tradução para Inglês concluída.")
