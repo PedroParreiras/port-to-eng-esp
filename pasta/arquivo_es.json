@@ -1,10 +1,10 @@
 {
   "common": {
-    "maintenance": "Performing Maintenance",
+    "maintenance": "prueba de mantenimiento",
     "sessionExpired": "Sesión expirada",
     "loading": "Cargando",
     "accountAbstraction": {
-      "transactionSent": "¡Transacción enviada para procesamiento! Por favor, espere un momento.",
+      "transactionSent": "Transacción enviada para procesamiento. Por favor, espere un momento.",
       "transactionError": "¡Algo salió mal! Contacta con un administrador.",
       "wrongNetwork": "Asegúrese de que está en la red correcta ({{chainId}})"
     },
