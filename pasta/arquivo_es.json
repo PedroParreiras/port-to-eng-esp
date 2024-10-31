@@ -1,7 +1,7 @@
 {
   "common": {
-    "maintenance": "Performing Maintenance",
-    "sessionExpired": "Sesión caducada",
+    "maintenance": "En mantenimiento",
+    "sessionExpired": "La sesión ha expirado",
     "loading": "Cargando",
     "yes": "Of course",
     "no": "No",
@@ -66,12 +66,12 @@
     "dataDeleted": "Dados eliminados con éxito.",
     "profileUpdated": "Profile updated.",
     "passwordChanged": "Contraseña cambiada con éxito.",
-    "emailSent": "Correo electrónico enviado.",
+    "emailSent": "El correo electrónico fue enviado.",
     "emailVerified": "Email verificado.",
     "registrationComplete": "Registration completed.",
     "loginSuccessful": "Inicio de sesión exitoso.",
     "logoutSuccessful": "Cierre de sesión exitoso.",
     "passwordReset": "Password reset.",
-    "subscriptionActive": "Active Subscription"
+    "subscriptionActive": "Suscripción Activa"
   }
 }
