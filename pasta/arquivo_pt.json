@@ -1,7 +1,7 @@
 {
   "common": {
-    "maintenance": "Realizando Manutenção",
-    "sessionExpired": "Sessão expirada",
+    "maintenance": "Em Manutenção",
+    "sessionExpired": "Sessão foi expirada",
     "loading": "A carregar",
     "yes": "Claro",
     "no": "Não",
@@ -66,7 +66,7 @@
     "dataDeleted": "Dados excluídos com sucesso.",
     "profileUpdated": "Perfil atualizado.",
     "passwordChanged": "Senha alterada com sucesso.",
-    "emailSent": "Email enviado.",
+    "emailSent": "Email foi enviado.",
     "emailVerified": "Email verificado.",
     "registrationComplete": "Registro concluído.",
     "loginSuccessful": "Login realizado com sucesso.",
