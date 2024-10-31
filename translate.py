@@ -50,8 +50,12 @@ def translate_text(text, target_language):
         print(f"Idioma alvo '{target_language}' não suportado.")
         sys.exit(1)
     
-    # Modificação do prompt para solicitar apenas a tradução sem explicações
-    prompt = f"Translate the following text to {lang}. Provide only the translated text without any additional information:\n\n{text}"
+    # Atualização do prompt para especificar o idioma de origem e destino
+    prompt = (
+        f"Translate the following text from Portuguese to {lang}. "
+        "Provide only the translated text without any additional information:\n\n"
+        f"{text}"
+    )
     
     try:
         response = openai.ChatCompletion.create(
@@ -64,6 +68,13 @@ def translate_text(text, target_language):
             temperature=0.3,
         )
         translated_text = response.choices[0].message['content'].strip()
+        
+        # Validar se a tradução está no idioma correto
+        if target_language.lower() == "inglês" and not translated_text.endswith('.'):
+            # Suposição: frases em inglês provavelmente terminam com ponto.
+            print(f"Alerta: A tradução para Inglês pode estar incorreta: '{translated_text}'")
+        elif target_language.lower() == "espanhol" and not translated_text.endswith('.'):
+            print(f"Alerta: A tradução para Espanhol pode estar incorreta: '{translated_text}'")
         
         return translated_text
     except Exception as e:
