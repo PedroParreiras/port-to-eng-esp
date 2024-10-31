@@ -60,33 +60,36 @@ def translate_text(text, target_language):
         )
         translated_text = response.choices[0].message['content'].strip()
         
-        # Remover possíveis quebras de linha ou espaços extras
-        translated_text = translated_text.split('\n')[0].strip()
+        # Remover possíveis quebras de linha ou espaços extras (Removido o truncamento)
+        # translated_text = translated_text.split('\n')[0].strip()
         
         return translated_text
     except Exception as e:
         print(f"Erro ao traduzir para {target_language}: {e}")
         sys.exit(1)
 
-def find_changes(current_data, previous_data):
+def find_changes(current_data, previous_data, parent_key=''):
     """
     Compara os dados atuais com os dados anteriores e retorna um dicionário
     contendo apenas as chaves que foram alteradas.
     """
     changes = {}
     for key, value in current_data.items():
+        full_key = f"{parent_key}.{key}" if parent_key else key
         if key not in previous_data:
             # Nova chave adicionada
             changes[key] = value
+            print(f"Nova chave adicionada: {full_key}")
         else:
             if isinstance(value, dict) and isinstance(previous_data[key], dict):
                 # Recursivamente verificar mudanças em dicionários aninhados
-                nested_changes = find_changes(value, previous_data[key])
+                nested_changes = find_changes(value, previous_data[key], full_key)
                 if nested_changes:
                     changes[key] = nested_changes
             else:
                 if value != previous_data[key]:
                     changes[key] = value
+                    print(f"Chave alterada: {full_key}")
     return changes
 
 def update_translations(current_pt, changes, previous_translation, target_language):
@@ -104,6 +107,7 @@ def update_translations(current_pt, changes, previous_translation, target_langua
         else:
             # Traduz somente o valor alterado
             translated_text = translate_text(value, target_language)
+            print(f"Traduzindo '{value}' para {target_language}: '{translated_text}'")
             previous_translation[key] = translated_text
 
 def main():
