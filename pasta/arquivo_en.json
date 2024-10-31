@@ -60,7 +60,7 @@
     "goodMorning": "Good morning!",
     "goodAfternoon": "Good afternoon!",
     "goodEvening": "Good evening!",
-    "actionSuccess": "Action successfully completed.",
+    "actionSuccess": "Action performed successfully.",
     "actionFailed": "Action failed. Please try again.",
     "dataSaved": "Data saved successfully.",
     "dataDeleted": "Data deleted successfully.",
@@ -72,6 +72,6 @@
     "loginSuccessful": "Login successful.",
     "logoutSuccessful": "Logout successfully performed.",
     "passwordReset": "Password reset.",
-    "subscriptionActive": "Signature"
+    "subscriptionActive": "Active subscription"
   }
 }

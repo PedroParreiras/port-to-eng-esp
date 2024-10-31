@@ -1,13 +1,13 @@
 {
   "common": {
-    "maintenance": "Carrying out maintenance",
-    "sessionExpired": "Sesión expirada",
+    "maintenance": "Performing Maintenance",
+    "sessionExpired": "Sesión caducada",
     "loading": "Cargando",
     "yes": "Of course",
     "no": "No",
     "and": "e",
     "you": "Ellos",
-    "hash": "Hash",
+    "hash": "Hash\n\nHash",
     "welcome": "Bienvenido",
     "logout": "Sair",
     "login": "Enter",
@@ -30,25 +30,25 @@
     "analytics": "Análisis",
     "notifications": "Notificaciones",
     "messages": "Mensajes",
-    "help": "Help",
+    "help": "Ayuda",
     "about": "Acerca de",
     "contact": "Contacto",
     "faq": "Preguntas frecuentes",
     "terms": "Terms of Use",
-    "privacy": "Política de privacidad",
-    "support": "Soporte"
+    "privacy": "Política de Privacidad",
+    "support": "Apoyo"
   },
   "buttons": {
     "saveChanges": "Save Changes",
     "confirm": "Confirmar",
-    "decline": "Declinar",
+    "decline": "Decline",
     "continue": "Continue",
     "back": "Regresar",
     "next": "Next",
-    "previous": "Anterior",
+    "previous": "Previous",
     "finish": "Finish",
-    "start": "Start",
-    "stop": "To stop",
+    "start": "Comenzar",
+    "stop": "Detener",
     "retry": "Intentar de nuevo",
     "download": "Descargar",
     "upload": "Send",
@@ -71,7 +71,7 @@
     "registrationComplete": "Registration completed.",
     "loginSuccessful": "Inicio de sesión exitoso.",
     "logoutSuccessful": "Cierre de sesión exitoso.",
-    "passwordReset": "Contraseña restablecida.",
-    "subscriptionActive": "Firma"
+    "passwordReset": "Password reset.",
+    "subscriptionActive": "Firma activa"
   }
 }
