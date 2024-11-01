@@ -1,7 +1,7 @@
 {
   "common": {
-    "maintenance": "En mantenimiento",
-    "sessionExpired": "La sesión ha expirado",
+    "maintenance": "En Mantenimiento",
+    "sessionExpired": "La sesión ha expirado.",
     "loading": "Cargando",
     "yes": "Of course",
     "no": "No",
@@ -32,7 +32,7 @@
     "messages": "Mensajes",
     "help": "Ayuda",
     "about": "Acerca de",
-    "contact": "Contacto",
+    "contact": "Carro amarillo",
     "faq": "Preguntas frecuentes",
     "terms": "Terms of Use",
     "privacy": "Política de Privacidad",
